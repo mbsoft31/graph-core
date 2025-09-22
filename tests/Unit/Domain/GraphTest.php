@@ -87,15 +87,15 @@ test('can get successors and predecessors in directed graph', function () {
     $graph->addEdge('B', 'C');
     $graph->addEdge('C', 'D');
 
-    expect($graph->successors('A'))->toMatchArray(['B', 'C']);
-    expect($graph->successors('B'))->toMatchArray(['C']);
-    expect($graph->successors('C'))->toMatchArray(['D']);
-    expect($graph->successors('D'))->toMatchArray([]);
+    expect($graph->successors('A'))->toEqual(['B', 'C'])
+        ->and($graph->successors('B'))->toEqual(['C'])
+        ->and($graph->successors('C'))->toEqual(['D'])
+        ->and($graph->successors('D'))->toEqual([])
+        ->and($graph->predecessors('A'))->toEqual([])
+        ->and($graph->predecessors('B'))->toEqual(['A'])
+        ->and($graph->predecessors('C'))->toEqual(['A', 'B'])
+        ->and($graph->predecessors('D'))->toEqual(['C']);
 
-    expect($graph->predecessors('A'))->toMatchArray([]);
-    expect($graph->predecessors('B'))->toMatchArray(['A']);
-    expect($graph->predecessors('C'))->toMatchArray(['A', 'B']);
-    expect($graph->predecessors('D'))->toMatchArray(['C']);
 });
 
 test('can get successors and predecessors in undirected graph', function () {

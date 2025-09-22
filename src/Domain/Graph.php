@@ -85,6 +85,7 @@ final class Graph implements MutableGraphInterface
             }
         }
 
+        sort($result);
         return $result;
     }
 
@@ -103,6 +104,7 @@ final class Graph implements MutableGraphInterface
             }
         }
 
+        sort($result);
         return $result;
     }
 
