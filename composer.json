@@ -5,7 +5,7 @@
   "license": "MIT",
   "keywords": ["graph", "data-structure", "php", "library", "algorithms"],
   "homepage": "https://www.github.com/mbsoft31/graph-core",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Mouadh BEKHOUCHE",
