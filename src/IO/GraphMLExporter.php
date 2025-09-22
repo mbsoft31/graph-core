@@ -7,12 +7,15 @@ use DOMElement;
 use DOMException;
 use Mbsoft\Graph\Contracts\ExporterInterface;
 use Mbsoft\Graph\Contracts\GraphInterface;
+use Mbsoft\Graph\IO\Concerns\CollectsAttributes;
 
 /**
  * Exports a graph to GraphML XML format.
  */
 final class GraphMLExporter implements ExporterInterface
 {
+    use CollectsAttributes;
+
     /**
      * @param GraphInterface $g
      * @return string
@@ -102,31 +105,5 @@ final class GraphMLExporter implements ExporterInterface
         }
 
         return $dom->saveXML();
-    }
-
-    /**
-     * Collects all unique attribute keys from nodes or edges.
-     *
-     * @return list<string>
-     */
-    private function collectAttributeKeys(GraphInterface $g, string $type): array
-    {
-        $keys = [];
-
-        if ($type === 'node') {
-            foreach ($g->nodes() as $nodeId) {
-                foreach (array_keys($g->nodeAttrs($nodeId)) as $key) {
-                    $keys[$key] = true;
-                }
-            }
-        } else {
-            foreach ($g->edges() as $edge) {
-                foreach (array_keys($edge->attributes) as $key) {
-                    $keys[$key] = true;
-                }
-            }
-        }
-
-        return array_keys($keys);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Mbsoft\Graph\Support;
 
+use OutOfBoundsException;
+
 /**
  * Manages a bidirectional mapping between string IDs and dense integer indices (0..n-1).
  */
@@ -32,12 +34,12 @@ final class IndexMap
     /**
      * Gets the string ID for a given integer index.
      *
-     * @throws \OutOfBoundsException if the index does not exist.
+     * @throws OutOfBoundsException if the index does not exist.
      */
     public function id(int $index): string
     {
         if (!isset($this->idxToId[$index])) {
-            throw new \OutOfBoundsException("No ID found for index: $index");
+            throw new OutOfBoundsException("No ID found for index: $index");
         }
         return $this->idxToId[$index];
     }

@@ -134,30 +134,4 @@ final class GexfExporter implements ExporterInterface
 
         return $dom->saveXML();
     }
-
-    /**
-     * Collects all unique attribute keys from nodes or edges.
-     *
-     * @return list<string>
-     */
-    private function collectAttributeKeys(GraphInterface $g, string $type): array
-    {
-        $keys = [];
-
-        if ($type === 'node') {
-            foreach ($g->nodes() as $nodeId) {
-                foreach (array_keys($g->nodeAttrs($nodeId)) as $key) {
-                    $keys[$key] = true;
-                }
-            }
-        } else {
-            foreach ($g->edges() as $edge) {
-                foreach (array_keys($edge->attributes) as $key) {
-                    $keys[$key] = true;
-                }
-            }
-        }
-
-        return array_values(array_keys($keys));
-    }
 }
