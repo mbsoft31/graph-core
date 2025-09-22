@@ -1,8 +1,8 @@
 # mbsoft/graph-core
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/mbsoft/graph-core.svg?style=flat-square)](https://packagist.org/packages/mbsoft/graph-core)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/YOUR_GITHUB_USERNAME/graph-core/ci.yml?branch=main&style=flat-square)](https://github.com/YOUR_GITHUB_USERNAME/graph-core/actions)
-[![Total Downloads](https://img.shields.io/packagist/dt/mbsoft/graph-core.svg?style=flat-square)](https://packagist.org/packages/mbsoft/graph-core)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mbsoft31/graph-core.svg?style=flat-square)](https://packagist.org/packages/mbsoft/graph-core)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mbsoft31/graph-core/ci.yml?branch=main&style=flat-square)](https://github.com/mbsoft31/graph-core/actions)
+[![Total Downloads](https://img.shields.io/packagist/dt/mbsoft31/graph-core.svg?style=flat-square)](https://packagist.org/packages/mbsoft31/graph-core)
 
 A lightweight, performant, and dependency-free graph data structure library for PHP 8.2+.
 
