@@ -1,0 +1,31 @@
+{
+  "name": "mbsoft31/graph-core",
+  "description": "A lightweight, performant, and dependency-free graph data structure library for PHP.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["graph", "data-structure", "php", "library", "algorithms"],
+  "homepage": "https://www.github.com/mbsoft31/graph-core",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Mouadh BEKHOUCHE",
+      "email": "bekhouche.mouadh@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mbsoft\\Graph\\": "src/"
+    }
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
