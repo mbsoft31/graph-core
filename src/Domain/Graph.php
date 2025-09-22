@@ -31,6 +31,10 @@ final class Graph implements MutableGraphInterface
 
     private readonly IndexMap $ids;
 
+    /** @var list<Edge>|null Cached list of all edges. */
+    private ?array $cachedEdges = null;
+    private bool $edgesCacheDirty = true;
+
     public function __construct(private readonly bool $directed = true)
     {
         $this->ids = new IndexMap();
@@ -50,24 +54,27 @@ final class Graph implements MutableGraphInterface
 
     public function edges(): array
     {
-        $edges = [];
+        if ($this->edgesCacheDirty || $this->cachedEdges === null) {
+            $edges = [];
+            foreach ($this->succ as $fromIdx => $successors) {
+                $fromId = $this->ids->id($fromIdx);
+                foreach (array_keys($successors) as $toIdx) {
+                    $toId = $this->ids->id($toIdx);
 
-        foreach ($this->succ as $fromIdx => $successors) {
-            $fromId = $this->ids->id($fromIdx);
-            foreach (array_keys($successors) as $toIdx) {
-                $toId = $this->ids->id($toIdx);
+                    // For undirected graphs, only include each edge once
+                    if (!$this->directed && $fromId > $toId) {
+                        continue;
+                    }
 
-                // For undirected graphs, only include each edge once (canonicalize)
-                if (!$this->directed && $fromId > $toId) {
-                    continue;
+                    $attrs = $this->edgeAttributes[$fromIdx][$toIdx] ?? [];
+                    $edges[] = new Edge($fromId, $toId, $attrs);
                 }
-
-                $attrs = $this->edgeAttributes[$fromIdx][$toIdx] ?? [];
-                $edges[] = new Edge($fromId, $toId, $attrs);
             }
+            $this->cachedEdges = $edges;
+            $this->edgesCacheDirty = false;
         }
 
-        return $edges;
+        return $this->cachedEdges;
     }
 
     public function successors(string $id): array
@@ -159,6 +166,9 @@ final class Graph implements MutableGraphInterface
 
         // Merge attributes (new attributes override existing ones)
         $this->nodeAttributes[$idx] = $attrs + ($this->nodeAttributes[$idx] ?? []);
+
+        // Mark edges cache as dirty since node addition may affect edge list
+        $this->edgesCacheDirty = true;
     }
 
     public function addEdge(string $u, string $v, array $attrs = []): void
@@ -181,6 +191,9 @@ final class Graph implements MutableGraphInterface
             $this->pred[$uIdx][$vIdx] = true;
             $this->edgeAttributes[$vIdx][$uIdx] = $attrs;
         }
+
+        // Mark edges cache as dirty since edge addition affects edge list
+        $this->edgesCacheDirty = true;
     }
 
     public function setNodeAttrs(string $id, array $attrs): void
@@ -191,6 +204,8 @@ final class Graph implements MutableGraphInterface
 
         $idx = $this->ids->index($id);
         $this->nodeAttributes[$idx] = $attrs;
+
+        $this->edgesCacheDirty = true;
     }
 
     public function setEdgeAttrs(string $u, string $v, array $attrs): void
@@ -208,6 +223,8 @@ final class Graph implements MutableGraphInterface
         if (!$this->directed && $u !== $v) {
             $this->edgeAttributes[$vIdx][$uIdx] = $attrs;
         }
+
+        $this->edgesCacheDirty = true;
     }
 
     // --- Factory Methods ---
