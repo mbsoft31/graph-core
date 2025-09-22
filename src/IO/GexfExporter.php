@@ -6,12 +6,15 @@ use DOMDocument;
 use DOMException;
 use Mbsoft\Graph\Contracts\ExporterInterface;
 use Mbsoft\Graph\Contracts\GraphInterface;
+use Mbsoft\Graph\IO\Concerns\CollectsAttributes;
 
 /**
  * Exports a graph to GEXF XML format.
  */
 final class GexfExporter implements ExporterInterface
 {
+    use CollectsAttributes;
+
     /**
      * @param GraphInterface $g
      * @return string
@@ -23,11 +26,11 @@ final class GexfExporter implements ExporterInterface
         $dom->formatOutput = true;
 
         // Create root gexf element
-        $gexf = $dom->createElementNS('https://www.gexf.net/1.3', 'gexf');
+        $gexf = $dom->createElementNS('http://www.gexf.net/1.3', 'gexf');
         $gexf->setAttribute('version', '1.3');
         $gexf->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $gexf->setAttribute('xsi:schemaLocation',
-            'http://www.gexf.net/1.3 https://www.gexf.net/1.3/gexf.xsd');
+            'http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd');
         $dom->appendChild($gexf);
 
         // Add meta information
