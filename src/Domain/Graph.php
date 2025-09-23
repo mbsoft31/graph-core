@@ -2,9 +2,9 @@
 
 namespace Mbsoft\Graph\Domain;
 
+use InvalidArgumentException;
 use Mbsoft\Graph\Contracts\MutableGraphInterface;
 use Mbsoft\Graph\Support\IndexMap;
-use InvalidArgumentException;
 
 /**
  * A concrete implementation of a mutable graph.
@@ -33,6 +33,7 @@ final class Graph implements MutableGraphInterface
 
     /** @var list<Edge>|null Cached list of all edges. */
     private ?array $cachedEdges = null;
+
     private bool $edgesCacheDirty = true;
 
     public function __construct(private readonly bool $directed = true)
@@ -93,6 +94,7 @@ final class Graph implements MutableGraphInterface
         }
 
         sort($result);
+
         return $result;
     }
 
@@ -112,6 +114,7 @@ final class Graph implements MutableGraphInterface
         }
 
         sort($result);
+
         return $result;
     }
 
@@ -139,6 +142,7 @@ final class Graph implements MutableGraphInterface
         }
 
         $idx = $this->ids->index($id);
+
         return $this->nodeAttributes[$idx] ?? [];
     }
 
@@ -233,7 +237,8 @@ final class Graph implements MutableGraphInterface
      * Creates a graph from an edge list.
      *
      * @param array<array{0: string, 1: string, 2?: array<string, mixed>}> $edges
-     * @param bool $directed
+     * @param bool                                                         $directed
+     *
      * @return self
      */
     public static function fromEdgeList(array $edges, bool $directed = true): self
@@ -242,6 +247,7 @@ final class Graph implements MutableGraphInterface
         foreach ($edges as $edge) {
             $graph->addEdge($edge[0], $edge[1], $edge[2] ?? []);
         }
+
         return $graph;
     }
 }

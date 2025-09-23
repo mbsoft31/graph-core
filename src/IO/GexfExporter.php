@@ -17,7 +17,9 @@ final class GexfExporter implements ExporterInterface
 
     /**
      * @param GraphInterface $g
+     *
      * @return string
+     *
      * @throws DOMException
      */
     public function export(GraphInterface $g): string
@@ -29,8 +31,10 @@ final class GexfExporter implements ExporterInterface
         $gexf = $dom->createElementNS('http://www.gexf.net/1.3', 'gexf');
         $gexf->setAttribute('version', '1.3');
         $gexf->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $gexf->setAttribute('xsi:schemaLocation',
-            'http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd');
+        $gexf->setAttribute(
+            'xsi:schemaLocation',
+            'http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd',
+        );
         $dom->appendChild($gexf);
 
         // Add meta information
@@ -57,7 +61,7 @@ final class GexfExporter implements ExporterInterface
 
             foreach ($nodeAttrKeys as $index => $attrName) {
                 $attr = $dom->createElement('attribute');
-                $attr->setAttribute('id', (string)$index);
+                $attr->setAttribute('id', (string) $index);
                 $attr->setAttribute('title', $attrName);
                 $attr->setAttribute('type', 'string');
                 $nodeAttrs->appendChild($attr);
@@ -73,7 +77,7 @@ final class GexfExporter implements ExporterInterface
 
             foreach ($edgeAttrKeys as $index => $attrName) {
                 $attr = $dom->createElement('attribute');
-                $attr->setAttribute('id', (string)$index);
+                $attr->setAttribute('id', (string) $index);
                 $attr->setAttribute('title', $attrName);
                 $attr->setAttribute('type', 'string');
                 $edgeAttrs->appendChild($attr);
@@ -96,8 +100,8 @@ final class GexfExporter implements ExporterInterface
                     $index = array_search($attrName, $nodeAttrKeys);
                     if ($index !== false) {
                         $attvalue = $dom->createElement('attvalue');
-                        $attvalue->setAttribute('for', (string)$index);
-                        $attvalue->setAttribute('value', (string)$attrValue);
+                        $attvalue->setAttribute('for', (string) $index);
+                        $attvalue->setAttribute('value', (string) $attrValue);
                         $attvalues->appendChild($attvalue);
                     }
                 }
@@ -113,7 +117,7 @@ final class GexfExporter implements ExporterInterface
         $edgeId = 0;
         foreach ($g->edges() as $edge) {
             $edgeElement = $dom->createElement('edge');
-            $edgeElement->setAttribute('id', (string)$edgeId++);
+            $edgeElement->setAttribute('id', (string) $edgeId++);
             $edgeElement->setAttribute('source', $edge->from);
             $edgeElement->setAttribute('target', $edge->to);
 
@@ -123,8 +127,8 @@ final class GexfExporter implements ExporterInterface
                     $index = array_search($attrName, $edgeAttrKeys);
                     if ($index !== false) {
                         $attvalue = $dom->createElement('attvalue');
-                        $attvalue->setAttribute('for', (string)$index);
-                        $attvalue->setAttribute('value', (string)$attrValue);
+                        $attvalue->setAttribute('for', (string) $index);
+                        $attvalue->setAttribute('value', (string) $attrValue);
                         $attvalues->appendChild($attvalue);
                     }
                 }
@@ -135,6 +139,13 @@ final class GexfExporter implements ExporterInterface
         }
         $graph->appendChild($edges);
 
-        return $dom->saveXML();
+        /** @var string $xml */
+        $xml = $dom->saveXML();
+
+        if (!$xml) {
+            throw new DOMException('Failed to generate XML from DOMDocument');
+        }
+
+        return $xml;
     }
 }

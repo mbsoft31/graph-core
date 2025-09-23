@@ -15,7 +15,7 @@ test('handles large graphs efficiently', function () {
 
     // Add edges to create a connected graph
     for ($i = 0; $i < $nodeCount - 1; $i++) {
-        $graph->addEdge("node_$i", "node_" . ($i + 1));
+        $graph->addEdge("node_$i", 'node_' . ($i + 1));
         // Add some random edges
         if ($i % 10 === 0) {
             $target = rand(0, $nodeCount - 1);

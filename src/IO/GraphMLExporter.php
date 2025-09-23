@@ -3,7 +3,6 @@
 namespace Mbsoft\Graph\IO;
 
 use DOMDocument;
-use DOMElement;
 use DOMException;
 use Mbsoft\Graph\Contracts\ExporterInterface;
 use Mbsoft\Graph\Contracts\GraphInterface;
@@ -18,7 +17,9 @@ final class GraphMLExporter implements ExporterInterface
 
     /**
      * @param GraphInterface $g
+     *
      * @return string
+     *
      * @throws DOMException
      */
     public function export(GraphInterface $g): string
@@ -29,8 +30,10 @@ final class GraphMLExporter implements ExporterInterface
         // Create root graphml element
         $graphml = $dom->createElementNS('http://graphml.graphdrawing.org/xmlns', 'graphml');
         $graphml->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $graphml->setAttribute('xsi:schemaLocation',
-            'http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd');
+        $graphml->setAttribute(
+            'xsi:schemaLocation',
+            'http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd',
+        );
         $dom->appendChild($graphml);
 
         // Collect all attribute keys from nodes and edges
@@ -76,7 +79,7 @@ final class GraphMLExporter implements ExporterInterface
 
             foreach ($g->nodeAttrs($nodeId) as $attrName => $attrValue) {
                 if (isset($nodeKeyMap[$attrName])) {
-                    $data = $dom->createElement('data', htmlspecialchars((string)$attrValue));
+                    $data = $dom->createElement('data', htmlspecialchars((string) $attrValue));
                     $data->setAttribute('key', $nodeKeyMap[$attrName]);
                     $node->appendChild($data);
                 }
@@ -95,7 +98,7 @@ final class GraphMLExporter implements ExporterInterface
 
             foreach ($edge->attributes as $attrName => $attrValue) {
                 if (isset($edgeKeyMap[$attrName])) {
-                    $data = $dom->createElement('data', htmlspecialchars((string)$attrValue));
+                    $data = $dom->createElement('data', htmlspecialchars((string) $attrValue));
                     $data->setAttribute('key', $edgeKeyMap[$attrName]);
                     $edgeElement->appendChild($data);
                 }
@@ -104,6 +107,13 @@ final class GraphMLExporter implements ExporterInterface
             $graph->appendChild($edgeElement);
         }
 
-        return $dom->saveXML();
+        /** @var string $xml */
+        $xml = $dom->saveXML();
+
+        if (!$xml) {
+            throw new DOMException('Failed to generate XML from DOMDocument');
+        }
+
+        return $xml;
     }
 }

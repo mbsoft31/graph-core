@@ -9,8 +9,9 @@ trait CollectsAttributes
     /**
      * Collects all unique attribute keys from nodes or edges in the graph.
      *
-     * @param GraphInterface $g The graph instance.
-     * @param string $type Either 'node' or 'edge' to specify which attributes to collect.
+     * @param GraphInterface $g    The graph instance.
+     * @param string         $type Either 'node' or 'edge' to specify which attributes to collect.
+     *
      * @return array An array of unique attribute keys.
      */
     private function collectAttributeKeys(GraphInterface $g, string $type): array

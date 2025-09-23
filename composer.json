@@ -3,35 +3,56 @@
   "description": "A lightweight, performant, and dependency-free graph data structure library for PHP.",
   "type": "library",
   "license": "MIT",
-  "keywords": ["graph", "data-structure", "php", "library", "algorithms"],
-  "homepage": "https://www.github.com/mbsoft31/graph-core",
-  "version": "1.0.1",
   "authors": [
     {
       "name": "Mouadh BEKHOUCHE",
       "email": "bekhouche.mouadh@gmail.com"
     }
   ],
+  "keywords": [
+    "graph",
+    "data-structure",
+    "network",
+    "algorithm",
+    "cytoscape",
+    "graphml",
+    "gexf"
+  ],
+  "homepage": "https://github.com/mbsoft31/graph-core",
   "require": {
     "php": "^8.2",
     "ext-dom": "*"
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.0",
+    "phpstan/phpstan": "^1.10",
+    "friendsofphp/php-cs-fixer": "^3.40"
   },
   "autoload": {
     "psr-4": {
       "Mbsoft\\Graph\\": "src/"
     }
   },
-  "require-dev": {
-    "pestphp/pest": "^2.0"
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
   },
   "scripts": {
     "test": "vendor/bin/pest",
-    "test-coverage": "vendor/bin/pest --coverage",
-    "test-watch": "vendor/bin/pest --watch"
-  }
+    "test:coverage": "vendor/bin/pest --coverage",
+    "analyse": "vendor/bin/phpstan analyse",
+    "format": "vendor/bin/php-cs-fixer fix",
+    "format:check": "vendor/bin/php-cs-fixer fix --dry-run --diff"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    },
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Domain;
 
+use InvalidArgumentException;
 use Mbsoft\Graph\Domain\Graph;
 use Mbsoft\Graph\Domain\SubgraphView;
-use InvalidArgumentException;
 
 test('can create subgraph view', function () {
     $graph = new Graph();
@@ -79,9 +79,9 @@ test('throws exception for nodes not in view', function () {
 
     $subgraph = new SubgraphView($graph, ['A']);
 
-    expect(fn() => $subgraph->nodeAttrs('B'))
+    expect(fn () => $subgraph->nodeAttrs('B'))
         ->toThrow(InvalidArgumentException::class, "Node 'B' does not exist in the subgraph view");
 
-    expect(fn() => $subgraph->successors('B'))
+    expect(fn () => $subgraph->successors('B'))
         ->toThrow(InvalidArgumentException::class, "Node 'B' does not exist in the subgraph view");
 });

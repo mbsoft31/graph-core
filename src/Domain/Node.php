@@ -8,11 +8,12 @@ namespace Mbsoft\Graph\Domain;
 final readonly class Node
 {
     /**
-     * @param string $id The unique ID of the node.
+     * @param string               $id         The unique ID of the node.
      * @param array<string, mixed> $attributes The node's attributes.
      */
     public function __construct(
         public string $id,
         public array $attributes = [],
-    ) {}
+    ) {
+    }
 }

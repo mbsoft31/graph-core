@@ -1,1 +1,11 @@
-vendor
+/vendor/
+/composer.lock
+/.phpunit.cache/
+/.pest/
+/coverage/
+/.idea/
+/.vscode/
+.DS_Store
+*.cache
+.php-cs-fixer.cache
+.phpstan/

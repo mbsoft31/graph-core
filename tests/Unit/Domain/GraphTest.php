@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Domain;
 
-use Mbsoft\Graph\Domain\Graph;
 use InvalidArgumentException;
+use Mbsoft\Graph\Domain\Graph;
 
 test('can create empty graph', function () {
     $graph = new Graph();
@@ -95,7 +95,6 @@ test('can get successors and predecessors in directed graph', function () {
         ->and($graph->predecessors('B'))->toEqual(['A'])
         ->and($graph->predecessors('C'))->toEqual(['A', 'B'])
         ->and($graph->predecessors('D'))->toEqual(['C']);
-
 });
 
 test('can get successors and predecessors in undirected graph', function () {
@@ -138,16 +137,16 @@ test('can handle self-loops', function () {
 test('throws exception for non-existent nodes', function () {
     $graph = new Graph();
 
-    expect(fn() => $graph->nodeAttrs('X'))
+    expect(fn () => $graph->nodeAttrs('X'))
         ->toThrow(InvalidArgumentException::class, "Node 'X' does not exist");
 
-    expect(fn() => $graph->setNodeAttrs('X', []))
+    expect(fn () => $graph->setNodeAttrs('X', []))
         ->toThrow(InvalidArgumentException::class, "Node 'X' does not exist");
 
-    expect(fn() => $graph->successors('X'))
+    expect(fn () => $graph->successors('X'))
         ->toThrow(InvalidArgumentException::class, "Node 'X' does not exist");
 
-    expect(fn() => $graph->predecessors('X'))
+    expect(fn () => $graph->predecessors('X'))
         ->toThrow(InvalidArgumentException::class, "Node 'X' does not exist");
 });
 
@@ -156,10 +155,10 @@ test('throws exception for non-existent edges', function () {
     $graph->addNode('A');
     $graph->addNode('B');
 
-    expect(fn() => $graph->edgeAttrs('A', 'B'))
+    expect(fn () => $graph->edgeAttrs('A', 'B'))
         ->toThrow(InvalidArgumentException::class, "Edge from 'A' to 'B' does not exist");
 
-    expect(fn() => $graph->setEdgeAttrs('A', 'B', []))
+    expect(fn () => $graph->setEdgeAttrs('A', 'B', []))
         ->toThrow(InvalidArgumentException::class, "Edge from 'A' to 'B' does not exist");
 });
 

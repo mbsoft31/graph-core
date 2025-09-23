@@ -28,6 +28,7 @@ final class IndexMap
             $this->idxToId[$this->nextIdx] = $id;
             $this->nextIdx++;
         }
+
         return $this->idToIdx[$id];
     }
 
@@ -41,6 +42,7 @@ final class IndexMap
         if (!isset($this->idxToId[$index])) {
             throw new OutOfBoundsException("No ID found for index: $index");
         }
+
         return $this->idxToId[$index];
     }
 

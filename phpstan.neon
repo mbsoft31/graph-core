@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - tests/Fixtures
+    tmpDir: .phpstan
+    checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false

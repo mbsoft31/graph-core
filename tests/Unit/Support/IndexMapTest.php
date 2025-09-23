@@ -13,7 +13,7 @@ test('can map strings to indices and back', function () {
         ->and($map->index('node2'))->toBe(1) // Second ID gets index 1
         ->and($map->id(1))->toBe('node2')
         ->and($map->index('node1'))->toBe(0)
-        ->and($map->index('node2'))->toBe(1);// Repeated calls return same index
+        ->and($map->index('node2'))->toBe(1); // Repeated calls return same index
 });
 
 test('hasId and hasIndex work correctly', function () {
@@ -42,5 +42,5 @@ test('throws exception for invalid index', function () {
 
     $map->index('node1');
 
-    expect(fn() => $map->id(999))->toThrow(OutOfBoundsException::class);
+    expect(fn () => $map->id(999))->toThrow(OutOfBoundsException::class);
 });

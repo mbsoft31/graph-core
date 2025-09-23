@@ -33,7 +33,9 @@ interface GraphInterface
      * Gets the IDs of the direct successors of a given node.
      *
      * @param string $id The ID of the node.
+     *
      * @return list<string> An array of successor node IDs.
+     *
      * @throws \InvalidArgumentException If the node does not exist.
      */
     public function successors(string $id): array;
@@ -42,7 +44,9 @@ interface GraphInterface
      * Gets the IDs of the direct predecessors of a given node.
      *
      * @param string $id The ID of the node.
+     *
      * @return list<string> An array of predecessor node IDs.
+     *
      * @throws \InvalidArgumentException If the node does not exist.
      */
     public function predecessors(string $id): array;
@@ -62,7 +66,9 @@ interface GraphInterface
      * Gets a copy of the attributes for a given node.
      *
      * @param string $id The ID of the node.
+     *
      * @return array<string, mixed> A copy of the node's attributes.
+     *
      * @throws \InvalidArgumentException If the node does not exist.
      */
     public function nodeAttrs(string $id): array;
@@ -72,7 +78,9 @@ interface GraphInterface
      *
      * @param string $u The ID of the source node.
      * @param string $v The ID of the target node.
+     *
      * @return array<string, mixed> A copy of the edge's attributes.
+     *
      * @throws \InvalidArgumentException If the edge does not exist.
      */
     public function edgeAttrs(string $u, string $v): array;

@@ -14,8 +14,8 @@ test('exports empty graph', function () {
     expect($result)->toEqual([
         'elements' => [
             'nodes' => [],
-            'edges' => []
-        ]
+            'edges' => [],
+        ],
     ]);
 });
 
@@ -32,11 +32,11 @@ test('exports graph with nodes and edges', function () {
         'elements' => [
             'nodes' => [
                 ['data' => ['id' => 'A', 'label' => 'Node A', 'color' => 'red']],
-                ['data' => ['id' => 'B', 'label' => 'Node B']]
+                ['data' => ['id' => 'B', 'label' => 'Node B']],
             ],
             'edges' => [
-                ['data' => ['source' => 'A', 'target' => 'B', 'weight' => 1.5, 'type' => 'connection']]
-            ]
-        ]
+                ['data' => ['source' => 'A', 'target' => 'B', 'weight' => 1.5, 'type' => 'connection']],
+            ],
+        ],
     ]);
 });

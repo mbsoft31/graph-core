@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\IO;
 
+use DOMDocument;
 use Mbsoft\Graph\Domain\Graph;
 use Mbsoft\Graph\IO\GexfExporter;
-use DOMDocument;
 
 test('exports valid GEXF XML', function () {
     $graph = new Graph();

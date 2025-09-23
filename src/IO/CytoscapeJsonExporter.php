@@ -22,8 +22,8 @@ final class CytoscapeJsonExporter implements ExporterInterface
             $nodes[] = [
                 'data' => array_merge(
                     ['id' => $nodeId],
-                    $g->nodeAttrs($nodeId)
-                )
+                    $g->nodeAttrs($nodeId),
+                ),
             ];
         }
 
@@ -35,16 +35,16 @@ final class CytoscapeJsonExporter implements ExporterInterface
                         'source' => $edge->from,
                         'target' => $edge->to,
                     ],
-                    $edge->attributes
-                )
+                    $edge->attributes,
+                ),
             ];
         }
 
         return [
             'elements' => [
                 'nodes' => $nodes,
-                'edges' => $edges
-            ]
+                'edges' => $edges,
+            ],
         ];
     }
 }

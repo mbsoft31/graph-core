@@ -2,25 +2,25 @@
 
 namespace Mbsoft\Graph\Domain;
 
-use Mbsoft\Graph\Contracts\GraphInterface;
 use InvalidArgumentException;
+use Mbsoft\Graph\Contracts\GraphInterface;
 
 /**
  * A read-only, immutable view of a subset of another graph.
  * It does not copy graph data, but filters it on the fly.
  */
-final class SubgraphView implements GraphInterface
+final readonly class SubgraphView implements GraphInterface
 {
-    /** @var array<string, true> A hash set of node IDs included in this view for quick lookups. */
-    private readonly array $nodeSet;
+    /** @var array<string, int> A hash set of node IDs included in this view for quick lookups. */
+    private array $nodeSet;
 
     /**
      * @param GraphInterface $originalGraph The graph to create a view from.
-     * @param list<string> $nodeIds The list of node IDs to include in the view.
+     * @param list<string>   $nodeIds       The list of node IDs to include in the view.
      */
     public function __construct(
-        private readonly GraphInterface $originalGraph,
-        array $nodeIds
+        private GraphInterface $originalGraph,
+        array $nodeIds,
     ) {
         $this->nodeSet = array_flip($nodeIds);
     }
@@ -60,7 +60,7 @@ final class SubgraphView implements GraphInterface
         // Filter to only include successors that are in the subgraph
         return array_values(array_filter(
             $successors,
-            fn($succId) => isset($this->nodeSet[$succId])
+            fn ($succId) => isset($this->nodeSet[$succId]),
         ));
     }
 
@@ -75,7 +75,7 @@ final class SubgraphView implements GraphInterface
         // Filter to only include predecessors that are in the subgraph
         return array_values(array_filter(
             $predecessors,
-            fn($predId) => isset($this->nodeSet[$predId])
+            fn ($predId) => isset($this->nodeSet[$predId]),
         ));
     }
 

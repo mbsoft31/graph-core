@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\IO;
 
+use DOMDocument;
 use Mbsoft\Graph\Domain\Graph;
 use Mbsoft\Graph\IO\GraphMLExporter;
-use DOMDocument;
 
 test('exports valid GraphML XML', function () {
     $graph = new Graph();
