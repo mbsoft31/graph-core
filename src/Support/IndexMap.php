@@ -46,9 +46,29 @@ final class IndexMap
         return $this->idxToId[$index];
     }
 
+    /**
+     * Gets the string ID for a given integer index.
+     * Alias for id() method to maintain compatibility with graph-algorithms package.
+     *
+     * @throws OutOfBoundsException if the index does not exist.
+     */
+    public function string(int $index): string
+    {
+        return $this->id($index);
+    }
+
     public function hasId(string $id): bool
     {
         return isset($this->idToIdx[$id]);
+    }
+
+    /**
+     * Checks if a string ID exists in the mapping.
+     * Alias for hasId() method to maintain compatibility with graph-algorithms package.
+     */
+    public function hasString(string $id): bool
+    {
+        return $this->hasId($id);
     }
 
     public function hasIndex(int $index): bool
